@@ -26,7 +26,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:background="@color/colorPrimary"></View>
+                android:background="@color/colorPrimary"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,12 +38,12 @@
                 android:textSize="30sp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="20dp"></TextView>
+                android:layout_marginTop="20dp"/>
             <!-- Look for the search box with CardView and TextView  -->
             <android.support.v7.widget.CardView
+                android:id="@+id/cardSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/cardSearch"
                 android:layout_below="@+id/title"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
@@ -74,7 +74,7 @@
                 android:layout_below="@id/cardSearch"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"></android.support.v4.view.ViewPager>
+                android:layout_height="150dp"/>
 
 
 
@@ -93,22 +93,23 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/viewPagerHeader"></TextView>
+                android:layout_below="@+id/viewPagerHeader"/>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleLocation"
+                android:clipToPadding="false"
+                android:layout_below="@+id/titleLocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="50dp"
-                android:layout_below="@+id/titleLocation"
                 android:layout_marginTop="10dp"
-                android:scrollbars="none"
-                android:id="@+id/recycleLocation"></android.support.v7.widget.RecyclerView>
+                android:scrollbars="none" />
 
 
             <include android:id="@+id/shimmerLocation"
-                layout="@layout/item_recycler_category_shimmer" />
+                layout="@layout/item_recycler_location_shimmer" />
 
             <TextView
                 android:padding="10dp"

@@ -13,11 +13,11 @@ import retrofit2.http.GET;
 
 public interface MonumentApi {
 
-    @GET("idLocation=52933")
+    @GET("?idPlace=52966")
     Call<Places> getPlace();
 
 
-    @GET("idLocation=52933")
+    @GET("?idLocation=52933")
     Call<Locations> getLocations();
 
 }
