@@ -11,15 +11,16 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MonumentClient {
 
-    // TODO 10 Add BASE url
-    private static final String BASE_URL = "";
+
+    private static final String BASE_URL = "https://31988c53-4351-402a-ad64-fb2ac7728019.mock.pstmn.io?idPlace=52966/";
 
     public static Retrofit getMonumentClient() {
-        // TODO 11 configures Retrofit
-        return null;
+
+        return new Retrofit.Builder().baseUrl(BASE_URL).client(provideOkHttp()).addConverterFactory(GsonConverterFactory.create()).build();
     }
 
     private static Interceptor provideLoggingInterceptor() {

@@ -5,6 +5,8 @@
  -----------------------------------------------------------------------------*/
 package com.thunder.project.view.home;
 
+import android.support.annotation.NonNull;
+
 import com.thunder.project.Utils;
 import com.thunder.project.model.Locations;
 import com.thunder.project.model.Places;
@@ -17,89 +19,71 @@ class HomePresenter {
 
     private HomeView view;
 
-    // TODO 15 Create the constructor (View)
+    public HomePresenter(HomeView view) {
+        this.view = view;
+    }
 
-    void getMeals() {
-        // TODO 16 do loading before making a request to the server
-
-        // TODO 17 with the line you have made a request
+    void getPlaces() {
+        view.showLoading();
         Call<Places> placesCall = Utils.getApi().getPlace();
-
-        // TODO 19 waiting for Callback
         placesCall.enqueue(new Callback<Places>() {
             @Override
-            public void onResponse(Call<Places> call, Response<Places> response) {
-                // TODO 20 Close loading when you have received a response from the server
+            public void onResponse( @NonNull Call<Places> call, @NonNull Response<Places> response) {
+                view.hideLoading();
 
-                // TODO 21 Non-empty results check & Non-empty results check
+
                 if (response.isSuccessful() && response.body() != null) {
-                    /*
-                     * TODO 22 Receive the result
-                     * input the results obtained into the setPlaces() behavior
-                     * and enter response.body() to the parameter
-                     */
 
+                    view.setPlace(response.body().getPlaces());
 
                 }
                 else {
-                    // TODO 23 Show an error message if the conditions are not met
 
+                    view.onErrorLoading(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Places> call, Throwable t) {
-                /*
-                 * Failure will be thrown here
-                 * for this you must do
-                 * 1. closes loading
-                 * 2. displays an error message
-                 */
 
-                // TODO 24 Close loading
-                // TODO 25 Show an error message
+
+                view.hideLoading();
+
+                view.onErrorLoading(t.getLocalizedMessage());
             }
         });
     }
 
 
     void getLocations() {
-        // TODO 26 do loading before making a request to the server
+        view.showLoading();
 
-        // TODO 27 create Call<Locations> locationsCall = ...
-        Call<Locations> locationsCall = null;
 
-        // TODO 28 waiting for enqueue Callback
+        Call<Locations> locationsCall = Utils.getApi().getLocations();
         locationsCall.enqueue(new Callback<Locations>() {
             @Override
-            public void onResponse(Call<Locations> call, Response<Locations> response) {
-                // TODO 29 Non-empty results check & Non-empty results check
+            public void onResponse(@NonNull Call<Locations> call,@NonNull Response<Locations> response) {
+
+                view.hideLoading();
                 if (response.isSuccessful() && response.body() != null) {
                     /*
                      * TODO 30 Receive the result
                      * input the results obtained into the setPlaces() behavior
                      * and enter response.body() to the parameter
                      */
-
+                    view.setLocation(response.body().getLocations());
 
                 }
                 else {
-                    // TODO 31 Show an error message if the conditions are not met
+                    view.onErrorLoading(response.message());
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Locations> call, Throwable t) {
-                /*
-                 * Failure will be thrown here
-                 * for this you must do
-                 * 1. closes loading
-                 * 2. displays an error message
-                 */
-
-                // TODO 32 Close loading
-                // TODO 33 Show an error message
+            public void onFailure(@NonNull Call<Locations> call,@NonNull Throwable t) {
+                view.hideLoading();
+                view.onErrorLoading(t.getLocalizedMessage());
             }
         });
     }
