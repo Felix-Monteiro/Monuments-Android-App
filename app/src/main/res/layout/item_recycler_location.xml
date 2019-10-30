@@ -26,6 +26,7 @@
             android:src="@drawable/sample_image_category"
             android:layout_width="match_parent"
             android:layout_height="70dp"/>
+
         <TextView
             android:text="Location"
             android:gravity="center"

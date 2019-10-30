@@ -45,11 +45,15 @@ public class RecyclerViewHomeAdapter extends RecyclerView.Adapter<RecyclerViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHomeAdapter.RecyclerViewHolder viewHolder, int i) {
 
+
+
         String strLocationThumb = locations.get(i).getStrLocationThumb();
         Picasso.get().load(strLocationThumb).placeholder(R.drawable.ic_circle).into(viewHolder.locationThumb);
 
         String strLocationName = locations.get(i).getStrLocation();
         viewHolder.locationName.setText(strLocationName);
+
+
     }
 
 

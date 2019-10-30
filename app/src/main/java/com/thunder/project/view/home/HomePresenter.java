@@ -66,11 +66,7 @@ class HomePresenter {
 
                 view.hideLoading();
                 if (response.isSuccessful() && response.body() != null) {
-                    /*
-                     * TODO 30 Receive the result
-                     * input the results obtained into the setPlaces() behavior
-                     * and enter response.body() to the parameter
-                     */
+
                     view.setLocation(response.body().getLocations());
 
                 }

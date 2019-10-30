@@ -29,9 +29,9 @@
                 android:background="@color/colorPrimary"/>
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/title"
                 android:textColor="@color/colorWhite"
                 android:text="@string/app_name"
                 android:textStyle="bold"
@@ -76,39 +76,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>
 
-
-
-
             <include android:id="@+id/shimmerPlace"
                 layout="@layout/item_view_pager_header_shimmer" />
 
             <TextView
+                android:id="@+id/titleLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/titleLocation"
-                android:text="@string/places_locations"
-                android:textSize="19sp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
+                android:layout_below="@+id/viewPagerHeader"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/viewPagerHeader"/>
+                android:layout_marginRight="16dp"
+                android:text="@string/places_locations"
+                android:textColor="@color/colorPrimary"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleLocation"
-                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/titleLocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="50dp"
-                android:layout_marginTop="10dp"
-                android:scrollbars="none" />
+                android:clipToPadding="false" />
 
-
-            <include android:id="@+id/shimmerLocation"
+            <include
+                android:id="@+id/shimmerLocation"
                 layout="@layout/item_recycler_location_shimmer" />
 
             <TextView
