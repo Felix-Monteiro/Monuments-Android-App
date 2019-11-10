@@ -45,12 +45,12 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     private void initIntent() {
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         List<Locations.Location> locations= (List<Locations.Location>) intent.getSerializableExtra(HomeActivity.EXTRA_LOCATION);
-       // List<Locations.Location> locations=intent.getSerializableExtra(HomeActivity.EXTRA_LOCATION);
+
         int position = intent.getIntExtra(HomeActivity.EXTRA_POSITION,0);
 
-        ViewPagerLocationAdapter adapter= new ViewPagerLocationAdapter(getSupportFragmentManager(), locations);
+        ViewPagerLocationAdapter adapter= new  ViewPagerLocationAdapter(getSupportFragmentManager(), locations);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(position,true);

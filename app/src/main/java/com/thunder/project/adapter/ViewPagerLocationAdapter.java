@@ -29,14 +29,16 @@ public class ViewPagerLocationAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i){
         LocationFragment fragment=new LocationFragment();
         Bundle args= new Bundle();
-
+        args.putString("EXTRA_DATA_NAME", locations.get(i).getStrLocation());
+        args.putString("EXTRA_DATA_DESC", locations.get(i).getStrLocationDescription());
+        args.putString("EXTRA_DATA_IMAGE", locations.get(i).getStrLocationThumb());
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return locations.size();
     }
 
     @Nullable

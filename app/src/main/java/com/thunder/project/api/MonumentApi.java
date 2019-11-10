@@ -10,6 +10,7 @@ import com.thunder.project.model.Places;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface MonumentApi {
 
@@ -19,5 +20,8 @@ public interface MonumentApi {
 
     @GET("?idLocation=52933")
     Call<Locations> getLocations();
+
+    @GET("?idmain=p")//it is not getting the api
+    Call<Places> getPlaceByLocation(@Query("p")String location);
 
 }
