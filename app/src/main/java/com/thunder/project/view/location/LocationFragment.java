@@ -90,10 +90,11 @@ public class LocationFragment extends Fragment implements LocationView {
         RecyclerViewPlaceByLocation adapter = new RecyclerViewPlaceByLocation(getActivity(),places);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setClipToPadding(false);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         adapter.setOnItemClickListener((view, position) -> {
-            Toast.makeText(getActivity(),"place : "+ places.get(position).getStrPlace(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"place : " + places.get(position).getStrPlace(),Toast.LENGTH_SHORT).show();
         });
     }
 

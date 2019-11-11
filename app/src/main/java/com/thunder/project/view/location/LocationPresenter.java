@@ -34,9 +34,9 @@ public class LocationPresenter {
             @Override
             public void onResponse(@NonNull Call<Places> call,@NonNull Response<Places> response) {
                 view.hideLoading();
-                if (response.isSuccessful() && response.body() !=null){
+                if (response.isSuccessful() && response.body() != null) {
                     view.setPlaces(response.body().getPlaces());
-                }else{
+                } else {
                     view.onErrorLoading(response.message());
                 }
             }
@@ -45,8 +45,6 @@ public class LocationPresenter {
             public void onFailure(@NonNull Call<Places> call,@NonNull Throwable t) {
                 view.hideLoading();
                 view.onErrorLoading(t.getLocalizedMessage());
-
-
             }
         });
 

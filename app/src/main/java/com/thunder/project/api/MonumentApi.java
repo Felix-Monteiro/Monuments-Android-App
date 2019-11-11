@@ -7,6 +7,9 @@ package com.thunder.project.api;
 
 import com.thunder.project.model.Locations;
 import com.thunder.project.model.Places;
+import com.thunder.project.view.location.LocationFragment;
+import com.thunder.project.view.location.LocationPresenter;
+import com.thunder.project.view.location.LocationView;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,14 +17,13 @@ import retrofit2.http.Query;
 
 public interface MonumentApi {
 
-    @GET("?idPlace=52966")
+    @GET("?idPlace")
     Call<Places> getPlace();
 
-
-    @GET("?idLocation=52933")
+    @GET("?idLocation")
     Call<Locations> getLocations();
 
-    @GET("?idmain=p")//it is not getting the api
-    Call<Places> getPlaceByLocation(@Query("p")String location);
+    @GET("?")
+    Call<Places> getPlaceByLocation(@Query("l")String location);
 
 }
