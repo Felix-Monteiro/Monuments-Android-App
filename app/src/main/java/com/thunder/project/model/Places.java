@@ -31,7 +31,7 @@ public class Places {
         @SerializedName("strDrinkAlternate")
         @Expose
         private Object strDrinkAlternate;
-        @SerializedName("strCategory")
+        @SerializedName("strLocation")
         @Expose
         private String strLocation;
         @SerializedName("strArea")
@@ -583,5 +583,7 @@ public class Places {
         public void setDateModified(Object dateModified) {
             this.dateModified = dateModified;
         }
+
+
     }
 }

@@ -26,4 +26,8 @@ public interface MonumentApi {
     @GET("?")
     Call<Places> getPlaceByLocation(@Query("l")String location);
 
+    @GET("?")
+    Call<Places> getPlacesByName(@Query("m") String placeName);
+
+
 }

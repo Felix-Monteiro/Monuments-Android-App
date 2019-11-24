@@ -5,6 +5,7 @@
  -----------------------------------------------------------------------------*/
 package com.thunder.project.view.location;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,12 +26,14 @@ import com.thunder.project.Utils;
 import com.thunder.project.adapter.RecyclerViewPlaceByLocation;
 import com.thunder.project.model.Places;
 import com.squareup.picasso.Picasso;
+import com.thunder.project.view.detail.DetailActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import static com.thunder.project.view.home.HomeActivity.EXTRA_DETAIL;
 
 public class LocationFragment extends Fragment implements LocationView {
 
@@ -94,7 +97,12 @@ public class LocationFragment extends Fragment implements LocationView {
         adapter.notifyDataSetChanged();
 
         adapter.setOnItemClickListener((view, position) -> {
-            Toast.makeText(getActivity(),"place : " + places.get(position).getStrPlace(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(),"place : " + places.get(position).getStrPlace(),Toast.LENGTH_SHORT).show();
+            TextView placeName = view.findViewById(R.id.placeName);
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra(EXTRA_DETAIL, placeName.getText().toString());
+            startActivity(intent);
+
         });
     }
 

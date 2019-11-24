@@ -7,4 +7,12 @@
     <string name="app_name">Monuments App</string>
     <string name="search_your_monuments">Search Your Dream Places…</string>
     <string name="places_locations">Places Locations</string>
+    <string name="location">Location</string>
+    <string name="country">Country</string>
+    <string name="instructions">HISTORY</string>
+    <string name="dot_loading">...</string>
+    <string name="Characteristics">CHARACTERISTICS</string>
+    <string name="youtube">YOUTUBE</string>
+    <string name="source">SOURCE</string>
+    <string name="favorite">Favorite</string>
 </resources>

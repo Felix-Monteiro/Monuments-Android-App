@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thunder.project.R;
@@ -20,6 +21,7 @@ import com.thunder.project.adapter.RecyclerViewHomeAdapter;
 import com.thunder.project.adapter.ViewPagerHeaderAdapter;
 import com.thunder.project.model.Locations;
 import com.thunder.project.model.Places;
+import com.thunder.project.view.detail.DetailActivity;
 import com.thunder.project.view.location.LocationActivity;
 
 import java.io.Serializable;
@@ -35,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     public static final String EXTRA_LOCATION="location";
     public static final String EXTRA_POSITION="position";
+    public static final String EXTRA_DETAIL = "detail";
 
     @BindView(R.id.viewPagerHeader) ViewPager viewPagerPlace;
     @BindView(R.id.recycleLocation) RecyclerView recyclerViewLocation;
@@ -73,8 +76,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         viewPagerPlace.setPadding(20,0,150,0);
         headerAdapter.notifyDataSetChanged();
 
-        headerAdapter.setOnItemClickListener((v, position) -> {
-         Toast.makeText(this,place.get(position).getStrPlace(), Toast.LENGTH_SHORT).show();
+        headerAdapter.setOnItemClickListener((view, position) -> {
+         //Toast.makeText(this,place.get(position).getStrPlace(), Toast.LENGTH_SHORT).show();
+            TextView placeName = view.findViewById(R.id.placeName);
+            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            intent.putExtra(EXTRA_DETAIL, placeName.getText().toString());
+            startActivity(intent);
+
         });
 
     }

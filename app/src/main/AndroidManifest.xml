@@ -30,6 +30,9 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
             android:label="Location"/>
+        <activity
+            android:name=".view.detail.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
