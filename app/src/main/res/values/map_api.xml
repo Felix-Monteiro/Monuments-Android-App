@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Developed by Felix Saraiva
+  Last modified 15/02/20 12:35
+  Copyright (c) 2020. All rights reserved
+  -->
+
+<resources>
+    <string name="map_key" translatable="false">AIzaSyCceBWf0rLgK13PaSrpoGUeZL74YYS1URc</string>
+</resources>

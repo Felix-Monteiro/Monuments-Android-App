@@ -23,6 +23,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.thunder.project.R;
 import com.thunder.project.Utils;
 import com.thunder.project.model.Places;
@@ -34,7 +40,9 @@ import butterknife.ButterKnife;
 
 import static com.thunder.project.view.home.HomeActivity.EXTRA_DETAIL;
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class DetailActivity extends AppCompatActivity implements DetailView , OnMapReadyCallback {
+
+    GoogleMap map;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -85,6 +93,9 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         DetailPresenter presenter = new DetailPresenter(this);
         presenter.getPlaceById(placeName);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
@@ -295,6 +306,16 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     public void onErrorLoading(String message) {
         Utils.showDialogMessage(this,"Error",message);
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map=googleMap;
+
+        LatLng Lisbon = new LatLng(38.721343, -9.118027);
+        map.addMarker(new MarkerOptions().position(Lisbon).title("Lisboa"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(Lisbon));
 
     }
 }
