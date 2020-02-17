@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
@@ -79,6 +80,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
 
     @BindView(R.id.source)
     TextView source;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,6 +304,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
             intentSource.setData(Uri.parse(place.getStrSource()));
             startActivity(intentSource);
         });
+
+        //Gets Monument Coodinates
+        double lat= new Double(place.getStrProperty2());
+        double longi = new Double(place.getStrProperty3());
+
+        LatLng ThisMonument = new LatLng(lat,longi);
+        map.addMarker(new MarkerOptions().position(ThisMonument).title(place.getStrPlace()));
+        map.moveCamera(CameraUpdateFactory.newLatLng(ThisMonument));
+
     }
 
     @Override
@@ -310,12 +322,10 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap ){
         map=googleMap;
 
-        LatLng Lisbon = new LatLng(38.721343, -9.118027);
-        map.addMarker(new MarkerOptions().position(Lisbon).title("Lisboa"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(Lisbon));
-
     }
+
+
 }
