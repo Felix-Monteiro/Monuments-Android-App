@@ -15,4 +15,8 @@
     <string name="youtube">YOUTUBE</string>
     <string name="source">SOURCE</string>
     <string name="favorite">Favorite</string>
-    </resources>
+
+    <string name="facebook_application_id" translatable="false">1249693578563234</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1249693578563234</string>
+    <string name="signout">SignOut</string>
+</resources>

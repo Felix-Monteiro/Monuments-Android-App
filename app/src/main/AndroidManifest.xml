@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Developed by Felix Saraiva
-  Last modified 3/17/19 5:24 AM
-  Copyright (c) 2019. All rights reserved
-  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.thunder.project">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
     <application
@@ -20,29 +15,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
 
         <activity
-            android:name="com.thunder.project.view.home.HomeActivity"
-            android:theme="@style/AppTheme">
+            android:name=".Login.FirebaseAuth">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.location.LocationActivity"
-            android:theme="@style/AppTheme"
+
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".view.location.LocationActivity"
+            android:label="Location"
             android:screenOrientation="portrait"
-            android:label="Location"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".view.detail.DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -296,12 +296,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/shadow_bottom_to_top"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="center" />
-
-
 </android.support.design.widget.CoordinatorLayout>
