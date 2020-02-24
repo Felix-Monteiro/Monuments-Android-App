@@ -5,7 +5,7 @@
   Copyright (c) 2019. All rights reserved
   -->
 <resources>
-    <color name="colorPrimary">#85001F</color>
+    <color name="colorPrimary">#52494B</color>
     <color name="colorPrimaryDark">#630118</color>
     <color name="colorAccent">#811BD873</color>
     <color name="colorNull">#00000000</color>
