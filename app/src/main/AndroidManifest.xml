@@ -24,20 +24,25 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
+        <activity android:name=".Login.Splash">
+
+        </activity>
+
         <activity
 
             android:name=".Login.FirebaseAuth">
+
+        </activity>
+
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".view.home.HomeActivity"
-            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".view.location.LocationActivity"

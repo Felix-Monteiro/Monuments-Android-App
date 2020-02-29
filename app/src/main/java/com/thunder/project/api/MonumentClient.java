@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MonumentClient {
 
 
-    private static final String BASE_URL = "https://31988c53-4351-402a-ad64-fb2ac7728019.mock.pstmn.io/";
+    private static final String BASE_URL = "https://project-4a153.firebaseio.com";
 
     public static Retrofit getMonumentClient() {
 

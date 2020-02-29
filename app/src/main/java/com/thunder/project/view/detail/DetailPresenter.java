@@ -23,7 +23,7 @@ public class DetailPresenter {
 
         view.showLoading();
 
-        Utils.getApi().getPlacesByName(placeName).enqueue(new Callback<Places>() {
+        Utils.getApi().getPlacesByName(placeName+".json").enqueue(new Callback<Places>() {
             @Override
             public void onResponse(@NonNull Call<Places> call,@NonNull Response<Places> response) {
                 view.hideLoading();

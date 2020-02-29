@@ -29,7 +29,7 @@ public class LocationPresenter {
     void getPlaceByLocation(String location) {
 
         view.showLoading();
-        Call<Places> placesCall = Utils.getApi().getPlaceByLocation(location);
+        Call<Places> placesCall = Utils.getApi().getPlaceByLocation(location+".json");
         placesCall.enqueue(new Callback<Places>() {
             @Override
             public void onResponse(@NonNull Call<Places> call,@NonNull Response<Places> response) {
