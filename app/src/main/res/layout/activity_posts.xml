@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Developed by Felix Saraiva
+  Last modified 03/03/20 10:12
+  Copyright (c) 2020. All rights reserved
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#009688"
+    tools:context=".view.post.PostsActivity">
+
+    <TextView
+        android:id="@+id/headerTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Memories"
+        android:textAlignment="center"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorWhite"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_zone"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:contentDescription="RecyclerImagesUploadDownload"/>
+
+    <LinearLayout
+        android:id="@+id/button_zone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/openMemoriesActivityBtn"
+            style="?android:attr/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="View Memories"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <Button
+            android:id="@+id/openUploadActivityBtn"
+            style="?android:attr/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Add New Memory"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

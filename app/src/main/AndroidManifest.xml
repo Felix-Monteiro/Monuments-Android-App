@@ -24,25 +24,47 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
+
         <activity android:name=".Login.Splash">
 
         </activity>
 
-        <activity
-
-            android:name=".Login.FirebaseAuth">
-
-        </activity>
-
-        <activity
-            android:name=".view.home.HomeActivity"
-            android:theme="@style/AppTheme">
+        <activity android:name=".Login.FirebaseAuth">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".view.post.PostsActivity"
+            android:label="Memories">
+
+        </activity>
+        <activity
+            android:name=".view.post.ItemsActivity"
+            android:label="List Page"
+            android:parentActivityName=".view.post.PostsActivity"/>
+        <activity
+            android:name=".view.post.UploadActivity"
+            android:label="Upload Page"
+            android:parentActivityName=".view.post.PostsActivity"/>
+        <activity
+            android:name=".view.post.DetailPostActivity"
+            android:label="Details Page"
+            android:parentActivityName=".view.post.ItemsActivity"/>
+
+
+
+
+
+
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:theme="@style/AppTheme">
+
         </activity>
         <activity
             android:name=".view.location.LocationActivity"
@@ -52,6 +74,8 @@
         <activity
             android:name=".view.detail.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
     </application>
 
 </manifest>

@@ -15,16 +15,16 @@ import retrofit2.http.Path;
 public interface MonumentApi {
 
 
-    @GET("/%3fidPlace=52966.json?print=pretty")
+    @GET("/%3fPlace.json?print=pretty")
     Call<Places> getPlace();
 
-    @GET("/%3fidLocation=52933.json?print=pretty")
+    @GET("/%3fLocation.json?print=pretty")
     Call<Locations> getLocations();
 
-    @GET("/{l}")
+    @GET("/Countries/{l}")
     Call<Places> getPlaceByLocation(@Path("l")String location);
 
-    @GET("/{m}")
+    @GET("/Monuments/{m}")
     Call<Places> getPlacesByName(@Path("m") String placeName);
 
 }

@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.thunder.project.R;
-import com.thunder.project.view.home.HomeActivity;
+import com.thunder.project.view.post.PostsActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +62,7 @@ public class FirebaseAuth extends AppCompatActivity {
         open_activity_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FirebaseAuth.this, HomeActivity.class));
+                startActivity(new Intent(FirebaseAuth.this, PostsActivity.class));
             }
         });
 
@@ -97,6 +97,7 @@ public class FirebaseAuth extends AppCompatActivity {
                 //Set Button Signout
                 btn_sign_out.setEnabled(true);
                 open_activity_button.setEnabled(true);
+
             }
             else {
                 Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
