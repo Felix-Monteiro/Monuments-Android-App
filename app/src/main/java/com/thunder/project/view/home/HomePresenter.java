@@ -5,7 +5,7 @@
  -----------------------------------------------------------------------------*/
 package com.thunder.project.view.home;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.thunder.project.Utils;
 import com.thunder.project.model.Locations;

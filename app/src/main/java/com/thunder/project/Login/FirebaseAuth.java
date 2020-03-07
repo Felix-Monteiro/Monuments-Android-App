@@ -6,10 +6,11 @@
 package com.thunder.project.Login;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,8 +20,10 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.thunder.project.R;
+import com.thunder.project.view.home.HomeActivity;
 import com.thunder.project.view.post.PostsActivity;
 
 import java.util.Arrays;
@@ -75,6 +78,34 @@ public class FirebaseAuth extends AppCompatActivity {
         );
         
         showSignInOptions();
+
+        //Navigation barView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //Set profile Selected
+        bottomNavigationView.setSelectedItemId(R.id.profile);
+        //Perform Item SelectListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(), FirebaseAuth.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.memories:
+                        startActivity(new Intent(getApplicationContext(), PostsActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
     }
 
     private void showSignInOptions() {

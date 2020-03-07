@@ -7,14 +7,19 @@ package com.thunder.project.view.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.thunder.project.Login.FirebaseAuth;
 import com.thunder.project.R;
 import com.thunder.project.Utils;
 import com.thunder.project.adapter.RecyclerViewHomeAdapter;
@@ -23,6 +28,7 @@ import com.thunder.project.model.Locations;
 import com.thunder.project.model.Places;
 import com.thunder.project.view.detail.DetailActivity;
 import com.thunder.project.view.location.LocationActivity;
+import com.thunder.project.view.post.PostsActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -54,6 +60,37 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         presenter.getPlaces();
         presenter.getLocations();
+
+
+
+        //Navigation barView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        //Perform Item SelectListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(), FirebaseAuth.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.memories:
+                        startActivity(new Intent(getApplicationContext(), PostsActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
+
 
     }
 

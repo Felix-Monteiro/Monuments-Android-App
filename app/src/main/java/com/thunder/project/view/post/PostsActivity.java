@@ -7,12 +7,18 @@ package com.thunder.project.view.post;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.thunder.project.Login.FirebaseAuth;
 import com.thunder.project.R;
-import com.thunder.project.model.Posts;
+import com.thunder.project.view.home.HomeActivity;
 
 public class PostsActivity extends AppCompatActivity {
     private Button openPostsActivityBtn,openUploadActivityBtn;
@@ -41,5 +47,32 @@ public class PostsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        //Navigation barView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //Set Memories Selected
+        bottomNavigationView.setSelectedItemId(R.id.memories);
+        //Perform Item SelectListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(), FirebaseAuth.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.memories:
+                        startActivity(new Intent(getApplicationContext(), PostsActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
     }
 }

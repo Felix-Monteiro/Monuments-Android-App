@@ -5,19 +5,16 @@
  -----------------------------------------------------------------------------*/
 package com.thunder.project.view.location;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 
 import com.thunder.project.Utils;
 import com.thunder.project.model.Places;
 
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.thunder.project.Utils.getApi;
 
 public class LocationPresenter {
     private LocationView view;

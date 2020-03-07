@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00571515">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="170dp"
@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/user_imageview"
@@ -52,7 +52,7 @@
         app:srcCompat="@drawable/profile_pic" />
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="371dp"
         android:layout_height="327dp"
@@ -118,7 +118,8 @@
                 app:layout_constraintHorizontal_bias="0.126"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/workplace_textview"
-                app:srcCompat="@drawable/ic_mail_black_24dp" />
+                app:srcCompat="@drawable/ic_mail_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
 
             <TextView
                 android:id="@+id/email_textview"
@@ -246,7 +247,8 @@
                 app:layout_constraintHorizontal_bias="0.126"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/video_textview"
-                app:srcCompat="@drawable/ic_icon_facebook" />
+                app:srcCompat="@drawable/ic_icon_facebook"
+                tools:ignore="VectorDrawableCompat" />
 
             <TextView
                 android:id="@+id/facebook_textview"
@@ -290,7 +292,8 @@
                 app:layout_constraintHorizontal_bias="0.126"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/facebook_textview"
-                app:srcCompat="@drawable/ic_twitter_white" />
+                app:srcCompat="@drawable/ic_twitter_white"
+                tools:ignore="VectorDrawableCompat" />
 
             <TextView
                 android:id="@+id/twitter_textview"
@@ -312,7 +315,7 @@
         </LinearLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btn_sign_out"
@@ -331,7 +334,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="65dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="59dp"
         android:background="@drawable/com_facebook_tooltip_black_background"
         android:enabled="false"
         android:text="Go to Main Page"
@@ -339,5 +342,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints">
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_navigation"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menu_navigation"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
