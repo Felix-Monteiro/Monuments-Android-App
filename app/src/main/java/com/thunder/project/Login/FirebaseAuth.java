@@ -9,10 +9,13 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -22,6 +25,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.thunder.project.R;
 import com.thunder.project.view.home.HomeActivity;
 import com.thunder.project.view.post.PostsActivity;
@@ -29,7 +33,15 @@ import com.thunder.project.view.post.PostsActivity;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FirebaseAuth extends AppCompatActivity {
+
+    FirebaseUser user;
+    private TextView userName, userProfName , userEmail ;
+    private CircleImageView userProfileImage;
+
+    private String currentUserId;
 
     private static final int MY_REQUEST_CODE = 1424 ; //Any Number
     List<AuthUI.IdpConfig> providers;
@@ -39,8 +51,8 @@ public class FirebaseAuth extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.firebase_auth);
-
+        setContentView(R.layout.activity_profile);
+        
         btn_sign_out = (Button)findViewById(R.id.btn_sign_out);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +63,7 @@ public class FirebaseAuth extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         btn_sign_out.setEnabled(false);
                         showSignInOptions();
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -61,13 +74,6 @@ public class FirebaseAuth extends AppCompatActivity {
             }
         });
 
-        open_activity_button = (Button)findViewById(R.id.open_activity_button);
-        open_activity_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(FirebaseAuth.this, PostsActivity.class));
-            }
-        });
 
         //Init provider
         providers= Arrays.asList(
@@ -76,8 +82,11 @@ public class FirebaseAuth extends AppCompatActivity {
                 new AuthUI.IdpConfig.FacebookBuilder().build(),//Facebook Builder
                 new AuthUI.IdpConfig.GoogleBuilder().build() //Google Builder
         );
-        
+
+
         showSignInOptions();
+
+
 
         //Navigation barView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -100,6 +109,7 @@ public class FirebaseAuth extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), PostsActivity.class));
                         overridePendingTransition(0,0);
                         return true;
+
                 }
                 return false;
             }
@@ -108,10 +118,64 @@ public class FirebaseAuth extends AppCompatActivity {
 
     }
 
+    private void displayUser(){
+
+        //Set up display places
+        userName = (TextView) findViewById(R.id.my_username);
+        userProfName = (TextView) findViewById(R.id.my_profile_name);
+        userEmail = (TextView) findViewById(R.id.my_email);
+        userProfileImage = (CircleImageView) findViewById(R.id.my_profile_pic);
+
+
+        user = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // Id of the provider (ex: google.com)
+                String providerId = profile.getProviderId();
+
+                // UID specific to the provider
+                String uid = profile.getUid();
+
+                // Name, email address, and profile photo Url
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+                Uri photoUrl = profile.getPhotoUrl();
+
+                //Display Information
+                userName.setText(name);
+                userProfName.setText(name);
+                userEmail.setText("Email :"+email);
+                userProfileImage.setImageURI(photoUrl);
+
+
+
+
+            }
+
+        }
+
+    }
+
+
     private void showSignInOptions() {
-        startActivityForResult(
-                AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).setTheme(R.style.MyTheme).build(),MY_REQUEST_CODE
-        );
+
+        user = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user!=null) {
+            Toast.makeText(this,""+user.getEmail(),Toast.LENGTH_SHORT).show();
+            displayUser();
+            btn_sign_out.setEnabled(true);
+
+
+        }else  {
+            startActivityForResult(
+
+                    AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).setTheme(R.style.MyTheme).build(), MY_REQUEST_CODE
+
+            );
+
+
+        }
 
     }
 
@@ -120,22 +184,27 @@ public class FirebaseAuth extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         if (requestCode==MY_REQUEST_CODE){
             IdpResponse response = IdpResponse.fromResultIntent(data);
-            if (resultCode==RESULT_OK){
+            if (resultCode==RESULT_OK)
+            {
                 //get user
                 FirebaseUser user = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
                 //show email on Toast
-                Toast.makeText(this,""+user.getEmail(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Logged as :"+user.getEmail(),Toast.LENGTH_SHORT).show();
                 //Set Button Signout
                 btn_sign_out.setEnabled(true);
-                open_activity_button.setEnabled(true);
+                //finish();
+                startActivity(getIntent());
 
             }
             else {
                 Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+
             }
+
 
         }
 
     }
+
 
 }

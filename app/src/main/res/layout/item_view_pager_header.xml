@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/placeThumb"
-                android:src="@drawable/sample_image_meal"
+                android:src="@drawable/sample_image_monument"
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
                 android:layout_height="match_parent" />

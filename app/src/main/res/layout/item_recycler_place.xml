@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/placeThumb"
             android:scaleType="centerCrop"
-            android:src="@drawable/sample_image_meal"
+            android:src="@drawable/sample_image_monument"
             android:layout_width="match_parent"
             android:layout_height="150dp"/>
         <View

@@ -16,10 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,6 +42,9 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
     private DatabaseReference mDatabaseRef;
     private ValueEventListener mDBListener;
     private List<Posts> mPosts;
+    private FirebaseUser mUser;
+
+    private StorageReference mStorageReff;
 
 
     private void openDetailActivity(String[] data){
@@ -66,9 +72,12 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(ItemsActivity.this);
 
+        mUser = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+
         mStorage = FirebaseStorage.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("memories_uploads");
-        //Needs improvement so it only calls individual users storage
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("memories_uploads/"+mUser.getUid().toString());
+
         mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -109,7 +118,7 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
         Posts selectedItem = mPosts.get(position);
         final String selectedKey = selectedItem.getKey();
 
-        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageURL());
+        StorageReference imageRef = mStorage.getReferenceFromUrl(mUser.getUid()+selectedItem.getImageURL());
         imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

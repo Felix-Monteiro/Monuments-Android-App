@@ -113,6 +113,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         viewPagerPlace.setPadding(20,0,150,0);
         headerAdapter.notifyDataSetChanged();
 
+
+
         headerAdapter.setOnItemClickListener((view, position) -> {
          //Toast.makeText(this,place.get(position).getStrPlace(), Toast.LENGTH_SHORT).show();
             TextView placeName = view.findViewById(R.id.placeName);

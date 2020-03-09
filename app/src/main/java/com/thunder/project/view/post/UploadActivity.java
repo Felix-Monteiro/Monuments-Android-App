@@ -64,9 +64,10 @@ public class UploadActivity extends AppCompatActivity {
         chosenImageView = findViewById(R.id.chosenImageView);
         uploadProgressBar = findViewById(R.id.progress_bar);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("memories_uploads");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("memories_uploads");
         mUser = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+        mStorageRef = FirebaseStorage.getInstance().getReference("memories_uploads");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("memories_uploads/"+mUser.getUid().toString());
+
 
         choosenImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
