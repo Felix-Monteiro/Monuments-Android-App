@@ -39,7 +39,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="20dp"/>
-            <!-- Look for the search box with CardView and TextView  -->
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSearch"
                 android:layout_width="match_parent"
@@ -51,17 +51,26 @@
                 app:cardBackgroundColor="@color/colorPrimaryDark"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="10dp"
-                android:text="@string/search_your_monuments"
-                android:textColor="@color/colorPrimaryLight"
-                android:gravity="center_vertical"
-                android:drawableLeft="@drawable/ic_search_primary_light"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/ic_search_primary_light"
-                />
+
+                <EditText
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawableStart="@drawable/ic_search_primary_light"
+                    android:drawableLeft="@drawable/ic_search_primary_light"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/search_your_monuments"
+                    android:padding="10dp"
+                    android:textColor="@color/colorPrimaryLight" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="40dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
             </androidx.cardview.widget.CardView>
 

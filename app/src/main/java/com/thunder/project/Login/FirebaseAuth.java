@@ -85,12 +85,15 @@ public class FirebaseAuth extends AppCompatActivity {
 
 
         showSignInOptions();
+        navigationBar();
 
 
+    }
 
+    public void navigationBar(){
         //Navigation barView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        //Set profile Selected
+        //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.profile);
         //Perform Item SelectListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -109,12 +112,10 @@ public class FirebaseAuth extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), PostsActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-
                 }
                 return false;
             }
         });
-
 
     }
 

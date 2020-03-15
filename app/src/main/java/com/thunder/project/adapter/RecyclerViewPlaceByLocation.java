@@ -18,6 +18,7 @@ import com.thunder.project.R;
 import com.thunder.project.model.Places;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,10 +30,13 @@ public class RecyclerViewPlaceByLocation extends RecyclerView.Adapter<RecyclerVi
     private Context context;
     private static ClickListener clickListener;
 
+
     public RecyclerViewPlaceByLocation(Context context, List<Places.Place> places) {
         this.places = places;
         this.context = context;
+
     }
+
 
     @NonNull
     @Override
@@ -70,6 +74,7 @@ public class RecyclerViewPlaceByLocation extends RecyclerView.Adapter<RecyclerVi
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View v) {

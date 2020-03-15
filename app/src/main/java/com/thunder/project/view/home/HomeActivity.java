@@ -5,24 +5,36 @@
  -----------------------------------------------------------------------------*/
 package com.thunder.project.view.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.thunder.project.Login.FirebaseAuth;
 import com.thunder.project.R;
 import com.thunder.project.Utils;
 import com.thunder.project.adapter.RecyclerViewHomeAdapter;
+import com.thunder.project.adapter.SearchAdapter;
 import com.thunder.project.adapter.ViewPagerHeaderAdapter;
 import com.thunder.project.model.Locations;
 import com.thunder.project.model.Places;
@@ -31,12 +43,11 @@ import com.thunder.project.view.location.LocationActivity;
 import com.thunder.project.view.post.PostsActivity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-
 
 
 public class HomeActivity extends AppCompatActivity implements HomeView {
@@ -49,6 +60,16 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @BindView(R.id.recycleLocation) RecyclerView recyclerViewLocation;
 
     HomePresenter presenter;
+    //search
+    EditText search_edit_text;
+    RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    FirebaseUser firebaseUser;
+    ArrayList<String> strPlaceList;
+    ArrayList<String> strLocationList;
+    ArrayList<String> strImageList;
+    SearchAdapter searchAdapter;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +79,116 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         presenter=new HomePresenter(this);
 
+        //search bar
+        search_edit_text= (EditText) findViewById(R.id.searchView);
+        recyclerView= (RecyclerView) findViewById(R.id.rv);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        firebaseUser = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+
+        strPlaceList = new ArrayList<>();
+        strLocationList = new ArrayList<>();
+        strImageList = new ArrayList<>();
+
+        search_edit_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().isEmpty()){
+                    setAdapter(s.toString());
+
+                }else {
+                    strLocationList.clear();
+                    strPlaceList.clear();
+                    strImageList.clear();
+                    recyclerView.removeAllViews();
+                }
+
+            }
+        });
+
+
+        //close search bar
+
         presenter.getPlaces();
         presenter.getLocations();
 
+        navigationBar();
 
 
+    }
+
+    //search
+    public void setAdapter(final String searchString){
+
+        databaseReference.child("Monuments").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                strLocationList.clear();
+                strPlaceList.clear();
+                strImageList.clear();
+                recyclerView.removeAllViews();
+
+                int counter = 0;
+
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    String monumentid=snapshot.getKey();//if I can send this to placeName in DetailPresenter
+                    String strPlace=snapshot.child("/places/0/strPlace").getValue(String.class);
+                    String strLocation=snapshot.child("/places/0/strLocation").getValue(String.class);
+                    String strImage=snapshot.child("/places/0/strPlaceThumb").getValue(String.class);
+
+
+                    if (strPlace.toLowerCase().contains(searchString.toLowerCase())){
+                        strPlaceList.add(strPlace);
+                        strLocationList.add(strLocation);
+                        strImageList.add(strImage);
+                        counter++;
+
+                    }
+                    else if (strLocation.toLowerCase().contains(searchString.toLowerCase())){
+                            strPlaceList.add(strPlace);
+                            strLocationList.add(strLocation);
+                            strImageList.add(strImage);
+                            counter++;
+
+                        }
+
+                    if (counter == 15){
+                        break;
+                    }
+
+                }
+                searchAdapter = new SearchAdapter(HomeActivity.this,strPlaceList,strLocationList,strImageList);
+                recyclerView.setAdapter(searchAdapter);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    //close search
+
+
+    public void navigationBar(){
         //Navigation barView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -89,10 +215,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             }
         });
 
-
-
-
     }
+
+
 
     @Override
     public void showLoading() {
@@ -150,7 +275,5 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         Utils.showDialogMessage(this,"Title",message);
     }
-
-
 
 }

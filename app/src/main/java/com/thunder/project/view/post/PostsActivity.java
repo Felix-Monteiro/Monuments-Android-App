@@ -48,9 +48,15 @@ public class PostsActivity extends AppCompatActivity {
             }
         });
 
+        navigationBar();
+
+    }
+
+
+    public void navigationBar(){
         //Navigation barView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        //Set Memories Selected
+        //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.memories);
         //Perform Item SelectListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

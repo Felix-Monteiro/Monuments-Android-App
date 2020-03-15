@@ -17,9 +17,11 @@ import androidx.core.view.ViewCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +45,9 @@ import static com.thunder.project.view.home.HomeActivity.EXTRA_DETAIL;
 
 public class DetailActivity extends AppCompatActivity implements DetailView , OnMapReadyCallback {
 
+    public static String EXTRA_DETAIL_SEARCHED;
     GoogleMap map;
+    Button camera;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -92,13 +96,19 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
         setupActionBar();
 
         Intent intent = getIntent();
+
         String placeName = intent.getStringExtra(EXTRA_DETAIL);
+        String placeNameSearched= intent.getStringExtra(EXTRA_DETAIL_SEARCHED);
+
 
         DetailPresenter presenter = new DetailPresenter(this);
         presenter.getPlaceById(placeName);
+        presenter.getPlaceById(placeNameSearched);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        memoryCamera();
 
     }
 
@@ -325,6 +335,26 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
     public void onMapReady(GoogleMap googleMap ){
         map=googleMap;
 
+    }
+
+    public void memoryCamera(){
+
+        camera = (Button)findViewById(R.id.camera);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try
+                {
+                    Intent intent = new Intent();
+                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivity(intent);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 

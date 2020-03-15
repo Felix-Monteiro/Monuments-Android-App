@@ -21,6 +21,8 @@ public class Places {
         this.places = places;
     }
 
+
+
     public class Place {
         @SerializedName("idPlace")
         @Expose
@@ -585,5 +587,8 @@ public class Places {
         }
 
 
+
+
     }
+
 }
