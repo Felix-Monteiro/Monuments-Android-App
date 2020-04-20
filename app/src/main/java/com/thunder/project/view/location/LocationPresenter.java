@@ -17,14 +17,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LocationPresenter {
-    private LocationView view;
 
+    private LocationView view;
     public LocationPresenter(LocationView view) {
         this.view = view;
     }
 
     void getPlaceByLocation(String location) {
-
+        //Gets the Monuments List based on the selected Country
         view.showLoading();
         Call<Places> placesCall = Utils.getApi().getPlaceByLocation(location+".json");
         placesCall.enqueue(new Callback<Places>() {
@@ -38,12 +38,12 @@ public class LocationPresenter {
                 }
             }
 
+            //Error Handling
             @Override
             public void onFailure(@NonNull Call<Places> call,@NonNull Throwable t) {
                 view.hideLoading();
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });
-
     }
 }

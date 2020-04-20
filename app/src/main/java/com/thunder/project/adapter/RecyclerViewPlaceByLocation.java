@@ -34,7 +34,6 @@ public class RecyclerViewPlaceByLocation extends RecyclerView.Adapter<RecyclerVi
     public RecyclerViewPlaceByLocation(Context context, List<Places.Place> places) {
         this.places = places;
         this.context = context;
-
     }
 
 

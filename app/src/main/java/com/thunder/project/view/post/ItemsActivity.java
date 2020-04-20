@@ -43,7 +43,6 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
     private ValueEventListener mDBListener;
     private List<Posts> mPosts;
     private FirebaseUser mUser;
-
     private StorageReference mStorageReff;
 
 
@@ -73,12 +72,11 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
         mAdapter.setOnItemClickListener(ItemsActivity.this);
 
         mUser = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
-
         mStorage = FirebaseStorage.getInstance();
-
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("memories_uploads/"+mUser.getUid().toString());
 
         mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            //Gets all the posts of the logged user
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mPosts.clear();
@@ -92,6 +90,7 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
                 mProgressBar.setVisibility(View.GONE);
             }
 
+            //Error Handling
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(ItemsActivity.this,databaseError.getMessage(),Toast.LENGTH_SHORT).show();
@@ -100,6 +99,7 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
         });
     }
 
+    //opens DetailActivity on click
     public void onItemClick (int position){
         Posts clickedPost = mPosts.get(position);
         String[] postData = {clickedPost.getName(),clickedPost.getDescription(),clickedPost.getImageURL()};
@@ -113,6 +113,7 @@ public class ItemsActivity extends AppCompatActivity implements PostsRecyclerAda
         openDetailActivity(postData);
     }
 
+    //Deletes a Post
     @Override
     public void onDeleteItemClick(int position){
         Posts selectedItem = mPosts.get(position);

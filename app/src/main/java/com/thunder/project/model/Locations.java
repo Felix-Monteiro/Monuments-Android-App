@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+//Responsible for handling the Countries logic and communication with the network and database layers.
 public class Locations implements Serializable {
 
     @SerializedName("locations")
@@ -71,7 +72,5 @@ public class Locations implements Serializable {
         public void setStrLocationDescription(String strLocationDescription) {
             this.strLocationDescription = strLocationDescription;
         }
-
     }
-
 }

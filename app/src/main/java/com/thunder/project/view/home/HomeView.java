@@ -10,13 +10,12 @@ import com.thunder.project.model.Places;
 
 import java.util.List;
 
+//Displays the data and notifies the Presenter about user actions.
 public interface HomeView {
-
 
     void showLoading();
     void hideLoading();
     void setPlace(List<Places.Place> place);
     void setLocation(List<Locations.Location> location);
     void onErrorLoading(String message);
-
 }

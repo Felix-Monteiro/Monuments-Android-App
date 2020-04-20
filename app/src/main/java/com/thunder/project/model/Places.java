@@ -7,6 +7,8 @@ package com.thunder.project.model;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+//Responsible for handling the Monuments logic and communication with the network and database layers.
 public class Places {
 
     @SerializedName("places")
@@ -20,8 +22,6 @@ public class Places {
     public void setPlaces(List<Place> places) {
         this.places = places;
     }
-
-
 
     public class Place {
         @SerializedName("idPlace")
@@ -585,10 +585,5 @@ public class Places {
         public void setDateModified(Object dateModified) {
             this.dateModified = dateModified;
         }
-
-
-
-
     }
-
 }

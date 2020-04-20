@@ -15,11 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MonumentClient {
 
-
+    //Link to Firebase Real-Time Database
     private static final String BASE_URL = "https://project-4a153.firebaseio.com";
 
     public static Retrofit getMonumentClient() {
-
         return new Retrofit.Builder().baseUrl(BASE_URL).client(provideOkHttp()).addConverterFactory(GsonConverterFactory.create()).build();
     }
 

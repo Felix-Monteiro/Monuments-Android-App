@@ -60,7 +60,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @BindView(R.id.recycleLocation) RecyclerView recyclerViewLocation;
 
     HomePresenter presenter;
-    //search
+
+    //Monument Search---
     EditText search_edit_text;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
@@ -70,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     ArrayList<String> strImageList;
     SearchAdapter searchAdapter;
     Context context;
+    //---
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         presenter=new HomePresenter(this);
 
-        //search bar
+        //Monument Search---
         search_edit_text= (EditText) findViewById(R.id.searchView);
         recyclerView= (RecyclerView) findViewById(R.id.rv);
 
@@ -97,31 +99,27 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (!s.toString().isEmpty()){
                     setAdapter(s.toString());
-
                 }else {
                     strLocationList.clear();
                     strPlaceList.clear();
                     strImageList.clear();
                     recyclerView.removeAllViews();
                 }
-
             }
         });
 
 
-        //close search bar
+        //---
 
         presenter.getPlaces();
         presenter.getLocations();
@@ -131,10 +129,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     }
 
-    //search
+    //Monument Search---
     public void setAdapter(final String searchString){
 
         databaseReference.child("Monuments").addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -144,55 +143,48 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 recyclerView.removeAllViews();
 
                 int counter = 0;
-
+                //Takes a snapshot of the database each time the user types a letter
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    String monumentid=snapshot.getKey();//if I can send this to placeName in DetailPresenter
+                    String monumentid=snapshot.getKey();
                     String strPlace=snapshot.child("/places/0/strPlace").getValue(String.class);
                     String strLocation=snapshot.child("/places/0/strLocation").getValue(String.class);
                     String strImage=snapshot.child("/places/0/strPlaceThumb").getValue(String.class);
-
 
                     if (strPlace.toLowerCase().contains(searchString.toLowerCase())){
                         strPlaceList.add(strPlace);
                         strLocationList.add(strLocation);
                         strImageList.add(strImage);
                         counter++;
-
                     }
                     else if (strLocation.toLowerCase().contains(searchString.toLowerCase())){
                             strPlaceList.add(strPlace);
                             strLocationList.add(strLocation);
                             strImageList.add(strImage);
                             counter++;
-
                         }
-
                     if (counter == 15){
                         break;
                     }
-
                 }
                 searchAdapter = new SearchAdapter(HomeActivity.this,strPlaceList,strLocationList,strImageList);
                 recyclerView.setAdapter(searchAdapter);
-
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
-    //close search
-
+    //---
 
     public void navigationBar(){
+
         //Navigation barView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.home);
+
         //Perform Item SelectListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -214,10 +206,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 return false;
             }
         });
-
     }
-
-
 
     @Override
     public void showLoading() {
@@ -233,26 +222,24 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void setPlace(List<Places.Place> place) {
+        //Most Famous Monuments
         ViewPagerHeaderAdapter headerAdapter = new ViewPagerHeaderAdapter(place,this);
         viewPagerPlace.setAdapter(headerAdapter);
         viewPagerPlace.setPadding(20,0,150,0);
         headerAdapter.notifyDataSetChanged();
 
-
-
         headerAdapter.setOnItemClickListener((view, position) -> {
-         //Toast.makeText(this,place.get(position).getStrPlace(), Toast.LENGTH_SHORT).show();
+
             TextView placeName = view.findViewById(R.id.placeName);
             Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
             intent.putExtra(EXTRA_DETAIL, placeName.getText().toString());
             startActivity(intent);
-
         });
-
     }
 
     @Override
     public void setLocation(List<Locations.Location> location) {
+        //Countries Menu
         RecyclerViewHomeAdapter homeAdapter = new RecyclerViewHomeAdapter(location,this);
         recyclerViewLocation.setAdapter(homeAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this,3, GridLayoutManager.VERTICAL, false);
@@ -265,15 +252,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             intent.putExtra(EXTRA_LOCATION,(Serializable) location);
             intent.putExtra(EXTRA_POSITION,position);
             startActivity(intent);
-
         });
-
     }
 
     @Override
     public void onErrorLoading(String message) {
-
         Utils.showDialogMessage(this,"Title",message);
     }
-
 }

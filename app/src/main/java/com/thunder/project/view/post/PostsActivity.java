@@ -31,15 +31,16 @@ public class PostsActivity extends AppCompatActivity {
         openPostsActivityBtn = findViewById(R.id.openMemoriesActivityBtn);
         openUploadActivityBtn = findViewById(R.id.openUploadActivityBtn);
 
+        //View Memories Button
         openPostsActivityBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public  void onClick(View view){
                 Intent i= new Intent(PostsActivity.this, ItemsActivity.class);
                 startActivity(i);
             }
-
         });
 
+        //Create Memories Button
         openUploadActivityBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -49,9 +50,7 @@ public class PostsActivity extends AppCompatActivity {
         });
 
         navigationBar();
-
     }
-
 
     public void navigationBar(){
         //Navigation barView
@@ -79,6 +78,5 @@ public class PostsActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 }

@@ -6,15 +6,14 @@
 package com.thunder.project.view.detail;
 
 import androidx.annotation.NonNull;
-
 import com.thunder.project.Utils;
 import com.thunder.project.model.Places;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPresenter {
+
     private DetailView view;
 
     public DetailPresenter(DetailView view){ this.view = view; }
@@ -23,6 +22,7 @@ public class DetailPresenter {
 
         view.showLoading();
 
+        //Gets the Monument json data from the API
         Utils.getApi().getPlacesByName(placeName+".json").enqueue(new Callback<Places>() {
             @Override
             public void onResponse(@NonNull Call<Places> call,@NonNull Response<Places> response) {
@@ -34,12 +34,12 @@ public class DetailPresenter {
                 }
             }
 
+            //Error handling
             @Override
             public void onFailure(@NonNull Call<Places> call,@NonNull Throwable t) {
                 view.hideLoading();
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });
-
     }
 }

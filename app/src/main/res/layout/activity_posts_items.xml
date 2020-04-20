@@ -16,11 +16,14 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/arizonia"
         android:text="Your Memories"
         android:textAlignment="center"
+        android:textSize="40dp"
         android:textStyle="bold"
+        android:background="@drawable/gradient_background"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorWhiteDark"/>
         <ProgressBar
             android:id="@+id/DataLoaderProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -33,6 +36,7 @@
         android:id="@+id/mRecyclerView"
         android:layout_weight="0.5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhiteDark"/>
 
 </LinearLayout>

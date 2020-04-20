@@ -43,12 +43,11 @@ public class UploadActivity extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView chosenImageView;
     private ProgressBar uploadProgressBar;
+
     private FirebaseUser mUser;
     private Uri mImageUri;
-
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
-
     private StorageTask mUploadTask;
 
     @Override
@@ -68,7 +67,7 @@ public class UploadActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference("memories_uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("memories_uploads/"+mUser.getUid().toString());
 
-
+        //Image Button
         choosenImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +75,7 @@ public class UploadActivity extends AppCompatActivity {
             }
         });
 
+        //Upload Button
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +88,7 @@ public class UploadActivity extends AppCompatActivity {
         });
     }
 
+    //Image choice function
     private void openFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -112,10 +113,10 @@ public class UploadActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
+    //Uploads a Memory to Firebase
     private void uploadFile(){
         if (mImageUri != null){
 
-            //StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()+"."+getFileExtention(mImageUri));
             //It creates separate directories for each user in the database
             final StorageReference imageRef = mStorageRef.child(mUser.getUid()+"/"+mImageUri.getLastPathSegment());
             uploadProgressBar.setVisibility(View.VISIBLE);
@@ -134,8 +135,6 @@ public class UploadActivity extends AppCompatActivity {
 
                         }
                     },500);
-
-
 
                     Toast.makeText(UploadActivity.this,"Memory Upload successful",Toast.LENGTH_LONG).show();
 
@@ -168,16 +167,11 @@ public class UploadActivity extends AppCompatActivity {
                    }
                });
         }else{
-            Toast.makeText(this,"You havent Selected any file ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"You haven't Selected any file!",Toast.LENGTH_SHORT).show();
         }
     }
     private void openImagesActivity(){
         Intent intent = new Intent(this,PostsActivity.class);
         startActivity(intent);
-
     }
-
-
-
-
 }

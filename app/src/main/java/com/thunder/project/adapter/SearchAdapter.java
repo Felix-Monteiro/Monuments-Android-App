@@ -36,15 +36,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         public SearchViewHolder(View itemView){
             super(itemView);
+
             monumentImage = (ImageView) itemView.findViewById(R.id.monImage);
             monName = (TextView) itemView.findViewById(R.id.monName);
             monLocation = (TextView) itemView.findViewById(R.id.monLocation);
-
-
-
         }
     }
-
 
     public SearchAdapter(Context context, ArrayList<String> strPlaceList, ArrayList<String> strLocationList, ArrayList<String> strImageList) {
         this.context = context;
@@ -62,28 +59,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-
         holder.monName.setText(strPlaceList.get(position));
         holder.monLocation.setText(strLocationList.get(position));
         Glide.with(context).asBitmap().load(strImageList.get(position)).placeholder(R.mipmap.ic_launcher_round).into(holder.monumentImage);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
                 if (strPlaceList != null){
-
-
                     Intent intent= new Intent(context,DetailActivity.class);
                     intent.putExtra(DetailActivity.EXTRA_DETAIL_SEARCHED, strPlaceList.get(position));
                     context.startActivity(intent);
                 }
 
             } });
-
     }
-
-
 
     @Override
     public int getItemCount() {

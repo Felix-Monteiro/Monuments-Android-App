@@ -38,10 +38,8 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
 
-
         initActionBar();
         initIntent();
-
     }
 
     private void initIntent() {
@@ -55,7 +53,6 @@ public class LocationActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(position,true);
         adapter.notifyDataSetChanged();
-
     }
 
     private void initActionBar() {

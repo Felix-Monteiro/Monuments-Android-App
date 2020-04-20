@@ -50,8 +50,7 @@ public class LocationFragment extends Fragment implements LocationView {
     AlertDialog.Builder descDialog;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -60,7 +59,7 @@ public class LocationFragment extends Fragment implements LocationView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //Creates Countries Info
         if(getArguments() !=null){
             textLocation.setText(getArguments().getString("EXTRA_DATA_DESC"));
             Picasso.get().load(getArguments().getString("EXTRA_DATA_IMAGE")).into(imageLocation);
@@ -70,11 +69,7 @@ public class LocationFragment extends Fragment implements LocationView {
 
             LocationPresenter presenter = new LocationPresenter(this);
             presenter.getPlaceByLocation(getArguments().getString("EXTRA_DATA_NAME"));
-
         }
-
-
-
     }
 
     @Override
@@ -96,12 +91,10 @@ public class LocationFragment extends Fragment implements LocationView {
         adapter.notifyDataSetChanged();
 
         adapter.setOnItemClickListener((view, position) -> {
-            //Toast.makeText(getActivity(),"place : " + places.get(position).getStrPlace(),Toast.LENGTH_SHORT).show();
             TextView placeName = view.findViewById(R.id.placeName);
             Intent intent = new Intent(getActivity(), DetailActivity.class);
             intent.putExtra(EXTRA_DETAIL, placeName.getText().toString());
             startActivity(intent);
-
         });
     }
 
@@ -115,6 +108,4 @@ public class LocationFragment extends Fragment implements LocationView {
         descDialog.setPositiveButton("CLOSE", ((dialog, which) -> dialog.dismiss()));
         descDialog.show();
     }
-
-
 }

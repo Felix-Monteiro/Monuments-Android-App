@@ -26,39 +26,31 @@ class HomePresenter {
     void getPlaces() {
         view.showLoading();
         Call<Places> placesCall = Utils.getApi().getPlace();
+        //Gets the Monuments form the API to the Most Famous Monuments List
         placesCall.enqueue(new Callback<Places>() {
             @Override
             public void onResponse( @NonNull Call<Places> call, @NonNull Response<Places> response) {
                 view.hideLoading();
 
-
                 if (response.isSuccessful() && response.body() != null) {
-
                     view.setPlace(response.body().getPlaces());
-
                 }
                 else {
-
                     view.onErrorLoading(response.message());
                 }
             }
-
+            //Error Handling
             @Override
             public void onFailure(Call<Places> call, Throwable t) {
-
-
                 view.hideLoading();
-
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });
     }
 
-
     void getLocations() {
         view.showLoading();
-
-
+        //Gets the Countries from the API to the Countries Menu
         Call<Locations> locationsCall = Utils.getApi().getLocations();
         locationsCall.enqueue(new Callback<Locations>() {
             @Override
@@ -66,16 +58,13 @@ class HomePresenter {
 
                 view.hideLoading();
                 if (response.isSuccessful() && response.body() != null) {
-
                     view.setLocation(response.body().getLocations());
-
                 }
                 else {
                     view.onErrorLoading(response.message());
-
                 }
             }
-
+            //Error Handling
             @Override
             public void onFailure(@NonNull Call<Locations> call,@NonNull Throwable t) {
                 view.hideLoading();

@@ -40,7 +40,7 @@ public class DetailPostActivity extends AppCompatActivity {
     }
 
     private String getRandomCategory(){
-        String[] categories={"Portugal","Spain","Greece"};
+        String[] categories={"What a View!","5 star Visit!","Now that's a monument!!"};
         Random random = new Random();
         int index = random.nextInt(categories.length-1);
         return categories[index];
@@ -53,8 +53,7 @@ public class DetailPostActivity extends AppCompatActivity {
 
         initializeWidgets();
 
-
-        //Receive data from itemsactivity via internet
+        //Receive data from itemsactivity from API
         Intent i = this.getIntent();
         String name = i.getExtras().getString("NAME_KEY");
         String description =i.getExtras().getString("DESCRIPTION_KEY");

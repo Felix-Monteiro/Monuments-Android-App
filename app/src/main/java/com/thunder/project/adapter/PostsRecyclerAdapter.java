@@ -35,7 +35,6 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
     public PostsRecyclerAdapter(Context context, List<Posts> uploads) {
         this.mContext = context;
         posts = uploads;
-
     }
 
     @Override
@@ -52,7 +51,6 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         holder.dateTextView.setText(getDateToday());
 
         Picasso.get().load(currentPost.getImageURL()).placeholder(R.drawable.placeholder).fit().centerCrop().into(holder.memoryImageView);
-
     }
 
     @Override
@@ -67,6 +65,7 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
+
             nameTextView = itemView.findViewById(R.id.nameTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
@@ -79,13 +78,17 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
 
         @Override
         public void onClick(View v) {
+
             if (mListener != null) {
+
                 int position = getAdapterPosition();
+
                 if (position != RecyclerView.NO_POSITION) {
                     mListener.onItemClick(position);
                 }
             }
         }
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select Action");
@@ -108,7 +111,6 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
                         case 2:
                             mListener.onDeleteItemClick(position);
                             return true;
-
                     }
                 }
             }
@@ -133,9 +135,6 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         String today = dateFormat.format(date);
         return today;
     }
-
-
-
 }
 
 

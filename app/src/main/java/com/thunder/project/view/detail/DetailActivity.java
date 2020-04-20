@@ -85,31 +85,29 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
     @BindView(R.id.source)
     TextView source;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-
         setupActionBar();
 
+
         Intent intent = getIntent();
-
-        String placeName = intent.getStringExtra(EXTRA_DETAIL);
-        String placeNameSearched= intent.getStringExtra(EXTRA_DETAIL_SEARCHED);
-
+        String placeName = intent.getStringExtra(EXTRA_DETAIL);//Get the Monument's Details from the users choice, on each monuments menu.
+        String placeNameSearched= intent.getStringExtra(EXTRA_DETAIL_SEARCHED);//Get the Monument's Details from the users search, on the search bar.
 
         DetailPresenter presenter = new DetailPresenter(this);
-        presenter.getPlaceById(placeName);
-        presenter.getPlaceById(placeNameSearched);
+        presenter.getPlaceById(placeName);//Get Id from monuments menu choice.
+        presenter.getPlaceById(placeNameSearched);//Get Id from user's search.
 
+        //Monument's Map Location
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //Take a Picture
         memoryCamera();
-
     }
 
     private void setupActionBar() {
@@ -171,6 +169,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
 
     @Override
     public void setPlace(Places.Place place) {
+        //get Information from Model (Places)
         Picasso.get().load(place.getStrPlaceThumb()).into(placeThumb);
         collapsingToolbarLayout.setTitle(place.getStrPlace());
         location.setText(place.getStrArea());
@@ -179,7 +178,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
         setupActionBar();
 
         //===
-
         if (!place.getStrProperty1().isEmpty()) {
             characteristics.append("\n \u2022 " + place.getStrProperty1());
         }
@@ -240,7 +238,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
         if (!place.getStrProperty20().isEmpty()) {
             characteristics.append("\n \u2022 " + place.getStrProperty20());
         }
-
         if (!place.getStrMeasure1().isEmpty() && !Character.isWhitespace(place.getStrMeasure1().charAt(0))) {
             measures.append("\n : " + place.getStrMeasure1());
         }
@@ -301,24 +298,27 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
         if (!place.getStrMeasure20().isEmpty() && !Character.isWhitespace(place.getStrMeasure20().charAt(0))) {
             measures.append("\n : " + place.getStrMeasure20());
         }
+        //===
 
-
+        //Youtube Video Button Click.
         youtube.setOnClickListener(v -> {
             Intent intentYoutube = new Intent(Intent.ACTION_VIEW);
             intentYoutube.setData(Uri.parse(place.getStrYoutube()));
             startActivity(intentYoutube);
         });
 
+        //Information Source Button Click.
         source.setOnClickListener(v -> {
             Intent intentSource = new Intent(Intent.ACTION_VIEW);
             intentSource.setData(Uri.parse(place.getStrSource()));
             startActivity(intentSource);
         });
 
-        //Gets Monument Coodinates
+        //Gets Monument Coordinates
         double lat= new Double(place.getStrProperty2());
         double longi = new Double(place.getStrProperty3());
 
+        //Insert them into a map marker (pin).
         LatLng ThisMonument = new LatLng(lat,longi);
         map.addMarker(new MarkerOptions().position(ThisMonument).title(place.getStrPlace()));
         map.moveCamera(CameraUpdateFactory.newLatLng(ThisMonument));
@@ -328,15 +328,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
     @Override
     public void onErrorLoading(String message) {
         Utils.showDialogMessage(this,"Error",message);
-
     }
 
+    //Calling googleMap
     @Override
-    public void onMapReady(GoogleMap googleMap ){
+    public void onMapReady(GoogleMap googleMap){
         map=googleMap;
-
     }
 
+    //Take a Picture Button
     public void memoryCamera(){
 
         camera = (Button)findViewById(R.id.camera);
@@ -356,6 +356,4 @@ public class DetailActivity extends AppCompatActivity implements DetailView , On
             }
         });
     }
-
-
 }

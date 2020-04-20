@@ -43,13 +43,14 @@ public class FirebaseAuth extends AppCompatActivity {
 
     private String currentUserId;
 
-    private static final int MY_REQUEST_CODE = 1424 ; //Any Number
+    private static final int MY_REQUEST_CODE = 1424 ; //My code
     List<AuthUI.IdpConfig> providers;
     Button btn_sign_out;
     Button open_activity_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         
@@ -57,7 +58,7 @@ public class FirebaseAuth extends AppCompatActivity {
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Logout
+                //Logout Button Click
                 AuthUI.getInstance().signOut(FirebaseAuth.this).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -75,7 +76,7 @@ public class FirebaseAuth extends AppCompatActivity {
         });
 
 
-        //Init provider
+        //Init provider (all the possible login options)
         providers= Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),//Email Builder
                 new AuthUI.IdpConfig.PhoneBuilder().build(),//Phone Builder
@@ -91,6 +92,7 @@ public class FirebaseAuth extends AppCompatActivity {
     }
 
     public void navigationBar(){
+
         //Navigation barView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -116,12 +118,11 @@ public class FirebaseAuth extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void displayUser(){
 
-        //Set up display places
+        //Set up user info display
         userName = (TextView) findViewById(R.id.my_username);
         userProfName = (TextView) findViewById(R.id.my_profile_name);
         userEmail = (TextView) findViewById(R.id.my_email);
@@ -147,14 +148,8 @@ public class FirebaseAuth extends AppCompatActivity {
                 userProfName.setText(name);
                 userEmail.setText("Email :"+email);
                 userProfileImage.setImageURI(photoUrl);
-
-
-
-
             }
-
         }
-
     }
 
 
@@ -166,18 +161,11 @@ public class FirebaseAuth extends AppCompatActivity {
             Toast.makeText(this,""+user.getEmail(),Toast.LENGTH_SHORT).show();
             displayUser();
             btn_sign_out.setEnabled(true);
-
-
         }else  {
             startActivityForResult(
-
                     AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).setTheme(R.style.MyTheme).build(), MY_REQUEST_CODE
-
             );
-
-
         }
-
     }
 
     @Override
@@ -195,17 +183,10 @@ public class FirebaseAuth extends AppCompatActivity {
                 btn_sign_out.setEnabled(true);
                 //finish();
                 startActivity(getIntent());
-
             }
             else {
                 Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
-
             }
-
-
         }
-
     }
-
-
 }

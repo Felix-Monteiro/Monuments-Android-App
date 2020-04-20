@@ -10,7 +10,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".view.post.UploadActivity">
+    tools:context=".view.post.UploadActivity"
+    android:background="@color/colorWhiteDark">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,8 +35,9 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:textStyle="bold"
+                android:fontFamily="@font/arizonia"
                 android:text="A New Memory"
-                android:textSize="20dp"
+                android:textSize="40dp"
                 android:textColor="@color/colorPrimaryDark"/>
             <EditText
                 android:id="@+id/nameEditText"
@@ -61,11 +63,11 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/button_choose_image"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:textColor="@color/colorWhite"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/button_border"
                     android:text="Choose Image"
                     android:layout_marginLeft="16dp"/>
                 <ImageView
@@ -77,10 +79,12 @@
 
             <Button
                 android:id="@+id/uploadBtn"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/button_border"
                 android:gravity="center"
                 android:text="Save Memory"
                 
