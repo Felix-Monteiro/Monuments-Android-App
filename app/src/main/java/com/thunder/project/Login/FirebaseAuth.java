@@ -181,7 +181,6 @@ public class FirebaseAuth extends AppCompatActivity {
                 Toast.makeText(this,"Logged as :"+user.getEmail(),Toast.LENGTH_SHORT).show();
                 //Set Button Signout
                 btn_sign_out.setEnabled(true);
-                //finish();
                 startActivity(getIntent());
             }
             else {
